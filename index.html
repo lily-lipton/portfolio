@@ -3,10 +3,103 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/favicon_round.png">
     <link rel="stylesheet" href="style.css">
-    <title>redirect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+    <title>Kairi's Library</title>
   </head>
   <body>
-    <h1>sample</h1>
+    <!-- Loding用 -->
+    <div id="splash">
+      <div id="splash_text"></div>
+    </div>
+
+    <div id="container">
+      <div id="vanta">
+        <div id="wrapper">
+
+          <div id="first-shown">
+            <p>Welcome to my Library</p>
+          </div>
+
+          <div id="main">
+            <p>ここにメインコンテンツが入る予定</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!-- Progressbar.js -->
+    <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/master/dist/progressbar.min.js"></script>
+    <script>
+      // https://kimmobrunfeldt.github.io/progressbar.js/
+      // ★円状に描画することもできるみたい
+      const bar = new ProgressBar.Line(splash_text, {
+        easing: 'easeInOut',  // アニメーション効果
+        duration: 1000,  // 時間指定 (ミリ秒)
+        strokeWidth: 0.5,  // 進捗ゲージの太さ
+        color: '#555',  // 進捗ゲージの色
+        trailWidth: 0.2,  // ゲージベースの線の太さ
+        trailColor: '#282828',  // ゲージベースの線の色
+        // テキストの形状を直接指定
+        text: {
+          // 天地中央に配置
+          style: {
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            padding: '0',
+            margin: '-30px 0 0 0',  // barより上に配置
+            transform: 'translate(-50%,-50%)',
+            'font-size': '1rem',
+            color: 'whitesmoke',
+          },
+          autoStyleContainer: false
+        },
+        step: function(state, bar) {
+          bar.setText(Math.round(bar.value() * 100) + ' %');  // テキストの数値
+        }
+      });
+
+      // barを描画する割合を指定 (1.0なら100%まで描画する)
+      // アニメーションが完了したら'#splash'をフェードアウト
+      // '#splash'は`z-index: 999;`で覆い被さっているイメージだと思う (その他の要素も最初から表示されている)
+      bar.animate(1.0, function() {
+        // $('#splash').delay(500).fadeOut(800);
+        $('#splash').fadeOut(1000);
+      });
+    </script>
+
+    <script src="./script.js"></script>
+
+    <!-- Vanta.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+    <script>
+    VANTA.WAVES({
+      el: "#vanta",
+      mouseControls: false,
+      touchControls: false,
+      gyroControls: false,
+      // minHeight: 200.00,
+      // minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      // color: 0x132631,
+      // color: 0x60f18,
+      color: 0x131c31,
+      shininess: 25.00,
+      waveHeight: 10.00,
+      // zoom: 0.70
+      // zoom: 0.50
+      zoom: 0.30
+    })
+    </script>
+
   </body>
 </html>
